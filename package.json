@@ -1,0 +1,100 @@
+{
+  "name": "owthorize",
+  "version": "0.4.1",
+  "description": "Block unsafe AI-agent tool calls before they execute. SQL DDL, SSRF, shell metacharacters, path traversal, and custom rules.",
+  "keywords": [
+    "ai",
+    "agent",
+    "guard",
+    "policy",
+    "security",
+    "tool",
+    "tools",
+    "anthropic",
+    "langchain",
+    "vercel-ai",
+    "ssrf",
+    "sql"
+  ],
+  "license": "MIT",
+  "author": "Ayush Pawar <i.yush.004@gmail.com>",
+  "homepage": "https://github.com/cswithiyush/owthorize#readme",
+  "bugs": {
+    "url": "https://github.com/cswithiyush/owthorize/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cswithiyush/owthorize.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./openai": {
+      "types": "./dist/openai.d.ts",
+      "import": "./dist/openai.js",
+      "require": "./dist/openai.cjs"
+    },
+    "./anthropic": {
+      "types": "./dist/anthropic.d.ts",
+      "import": "./dist/anthropic.js",
+      "require": "./dist/anthropic.cjs"
+    },
+    "./langchain": {
+      "types": "./dist/langchain.d.ts",
+      "import": "./dist/langchain.js",
+      "require": "./dist/langchain.cjs"
+    },
+    "./vercel-ai": {
+      "types": "./dist/vercel-ai.d.ts",
+      "import": "./dist/vercel-ai.js",
+      "require": "./dist/vercel-ai.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src tests",
+    "format": "biome format --write src tests",
+    "example": "tsx examples/quickstart.ts",
+    "example:openai": "tsx examples/openai-conversation.ts",
+    "example:vercel-ai": "tsx examples/vercel-ai-conversation.ts",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "node-sql-parser": "^5.3.0",
+    "picomatch": "^4.0.2",
+    "shell-quote": "^1.8.1"
+  },
+  "devDependencies": {
+    "@ai-sdk/openai": "^3.0.55",
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.5.0",
+    "@types/picomatch": "^3.0.1",
+    "@types/shell-quote": "^1.7.5",
+    "ai": "^6.0.172",
+    "openai": "^6.35.0",
+    "tsup": "^8.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "zod": "^4.4.1"
+  }
+}

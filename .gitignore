@@ -1,0 +1,17 @@
+node_modules
+dist
+.DS_Store
+*.log
+.vitest-cache
+.turbo
+.env
+.env.local
+.env.*
+!.env.example
+coverage
+*.tgz
+yarn.lock
+.npm/
+
+# Planning artifacts (not part of the public repo)
+owthorize_mvp_plan.html
