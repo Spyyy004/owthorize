@@ -1,6 +1,6 @@
 {
   "name": "owthorize",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Block unsafe AI-agent tool calls before they execute. SQL DDL, SSRF, shell metacharacters, path traversal, and custom rules.",
   "keywords": [
     "ai",
@@ -18,13 +18,13 @@
   ],
   "license": "MIT",
   "author": "Ayush Pawar <i.yush.004@gmail.com>",
-  "homepage": "https://github.com/cswithiyush/owthorize#readme",
+  "homepage": "https://github.com/Spyyy004/owthorize#readme",
   "bugs": {
-    "url": "https://github.com/cswithiyush/owthorize/issues"
+    "url": "https://github.com/Spyyy004/owthorize/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cswithiyush/owthorize.git"
+    "url": "git+https://github.com/Spyyy004/owthorize.git"
   },
   "type": "module",
   "engines": {

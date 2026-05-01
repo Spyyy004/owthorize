@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 _Nothing yet._
 
+## [0.4.2] — 2026-05-01
+
+### Fixed
+
+- Corrected `repository`, `homepage`, and `bugs` URLs in `package.json` to point at `github.com/Spyyy004/owthorize` (was pointing at a non-existent username in v0.4.1). README and changelog clone-URL references updated to match.
+
+No code changes — strictly a metadata fix so npmjs.com links resolve correctly.
+
 ## [0.4.1] — 2026-05-01
 
 Initial public release.
@@ -39,5 +47,6 @@ Initial public release.
 - Node ≥ 18.
 - Synchronous v1 design — no webhooks, no async approval state machine. Approvals belong in consumer code, gated on the `irreversible` flag.
 
-[Unreleased]: https://github.com/cswithiyush/owthorize/compare/v0.4.1...HEAD
-[0.4.1]: https://github.com/cswithiyush/owthorize/releases/tag/v0.4.1
+[Unreleased]: https://github.com/Spyyy004/owthorize/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/Spyyy004/owthorize/releases/tag/v0.4.2
+[0.4.1]: https://github.com/Spyyy004/owthorize/releases/tag/v0.4.1

@@ -235,7 +235,7 @@ The SDK never blocks waiting for approval — it returns synchronously and lets 
 Issues and PRs welcome. Bug reports with a minimal reproduction (the call site that surprised you, plus the audit-log line if you have it) are gold.
 
 ```bash
-git clone https://github.com/cswithiyush/owthorize.git
+git clone https://github.com/Spyyy004/owthorize.git
 cd owthorize
 npm install
 npm run typecheck
