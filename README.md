@@ -5,11 +5,22 @@
 [![types](https://img.shields.io/npm/types/owthorize.svg)](./dist/index.d.ts)
 [![node](https://img.shields.io/node/v/owthorize.svg)](./package.json)
 
-> **Prompt safeguards are theater.** The model isn't the boundary — the layer between it and your systems is.
+**A synchronous gate that catches destructive AI-agent tool calls before they execute.**
 
-`owthorize` is a synchronous JS/TS library that sits between your AI agent and your systems (database, HTTP, filesystem, shell) and **blocks destructive tool calls before they execute**.
+```ts
+// Your agent, having a bad day:
+await db.query("DELETE FROM users")   // no WHERE. every user, gone.
 
-It understands what the call actually means — by parsing SQL into an AST, normalizing URLs, tokenizing shell commands — instead of pattern-matching strings. That distinction matters: regex misses `WHERE 1=1`, schema-qualified table names, and IPv4-mapped IPv6 addresses. owthorize doesn't.
+// The same call, with owthorize in front of it:
+await safeQuery({ query: "DELETE FROM users" })
+// ❌ GuardDenied: sql.denyMutationWithoutWhere — blocked before it ran
+```
+
+Telling a model to "be careful" is not a security control. The failure happens at the **tool call**, not the prompt — so that's where owthorize lives: between your agent and your database, HTTP, filesystem, and shell.
+
+It blocks by understanding what a call actually *does* — parsing SQL into an AST, normalizing URLs, tokenizing shell commands — instead of pattern-matching strings. Regex misses `WHERE 1=1`, schema-qualified table names, and IPv4-mapped IPv6 addresses. owthorize doesn't.
+
+> **Parse, don't match.** The model isn't the boundary. The layer between it and your systems is.
 
 ```
 Your agent calls a tool
@@ -316,22 +327,6 @@ For defense against a hostile runtime you need a process boundary: a proxy, side
 **Wrap once.** `guard.tool(name, handler)` is the full API surface. You don't branch on `decision === "allow"` inside your handlers.
 
 **Testable from day one.** `guard.simulate()` is a first-class API, not an afterthought. Every built-in rule ships with tests.
-
----
-
-## Common gotchas
-
-**The audit log floods stdout on startup.** This is intentional — visible-by-default means you can't accidentally ship a service with no audit trail. Pass a custom `sink` or `silentSink` to suppress it.
-
-**`onUnknownTool: "deny"` is the default.** If you call a tool you forgot to wrap, you get `GuardDenied: unknown tool`. Relax this with `defaults.onUnknownTool: "allow"` while you're building, then set it back.
-
-**The adapter expects specific payload keys.** `sql.*` expects `{ query }`. `http` expects `{ url }`. `fs` expects `{ path }`. `shell` expects `{ command }` or `{ argv }`. If your handler uses different key names, write a thin wrapper that renames them, or set `adapter: "raw"` and use a custom rule.
-
-**`hasWhere` is structural, not semantic.** `DELETE FROM users WHERE 1=1` has a WHERE clause at the AST level, so `denyMutationWithoutWhere()` passes it. For stronger protection on specific tables, combine it with `denyTables`.
-
-**`fs.confineTo` does not follow symlinks.** A symlink inside the allowed root that points outside it won't be caught. Call `fs.realpath` in your handler if you need that defense.
-
-**`http.denyHosts` blocks IP literals, not DNS names.** It does not resolve hostnames. For DNS-rebinding protection, run behind an egress proxy.
 
 ---
 
